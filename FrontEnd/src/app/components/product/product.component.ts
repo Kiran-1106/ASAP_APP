@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from "../../services/product.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {map} from "rxjs";
+import {CartService} from "../../services/cart.service";
 
 declare let $: any;
 
@@ -25,6 +26,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
 
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -113,7 +115,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   }
 
   addToCart(id: number) {
-
+    this.cartService.AddProductToCart(id, this.quantityInput.nativeElement.value);
   }
 
 }

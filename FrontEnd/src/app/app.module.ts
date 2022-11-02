@@ -11,6 +11,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProductComponent } from './components/product/product.component';
+import { CartComponent } from './components/cart/cart.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {ToastrModule} from "ngx-toastr";
+import { CategoryComponent } from './components/category/category.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +24,9 @@ import { ProductComponent } from './components/product/product.component';
     FooterComponent,
     HomeComponent,
     RegisterComponent,
-    ProductComponent
+    ProductComponent,
+    CartComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +34,9 @@ import { ProductComponent } from './components/product/product.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

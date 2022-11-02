@@ -14,7 +14,6 @@ export class UserService {
   // @ts-ignore
   loginMessage$ = new BehaviorSubject<string>(null);
 
-
   constructor(private http: HttpClient) { }
 
   registerUser(formData: any): Observable<{ message: string }> {
