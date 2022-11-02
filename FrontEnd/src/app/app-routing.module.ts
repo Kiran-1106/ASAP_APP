@@ -7,6 +7,7 @@ import {CartComponent} from "./components/cart/cart.component";
 import {CategoryComponent} from "./components/category/category.component";
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {ProfileGuard} from "./guard/profile.guard";
+import {ContactComponent} from "./components/contact/contact.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,9 @@ const routes: Routes = [
   },
   {
     path: 'checkout', component: CheckoutComponent, canActivate:[ProfileGuard]
+  },
+  {
+    path: 'contact', component: ContactComponent
   }
 ];
 

@@ -17,6 +17,7 @@ import {ToastrModule} from "ngx-toastr";
 import { CategoryComponent } from './components/category/category.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ThankyouComponent } from './components/thankyou/thankyou.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ThankyouComponent } from './components/thankyou/thankyou.component';
     CartComponent,
     CategoryComponent,
     CheckoutComponent,
-    ThankyouComponent
+    ThankyouComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
