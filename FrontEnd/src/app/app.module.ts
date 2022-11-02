@@ -9,12 +9,14 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {ToastrModule} from "ngx-toastr";
 import { CategoryComponent } from './components/category/category.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ThankyouComponent } from './components/thankyou/thankyou.component';
 
 
 @NgModule({
@@ -26,11 +28,14 @@ import { CategoryComponent } from './components/category/category.component';
     RegisterComponent,
     ProductComponent,
     CartComponent,
-    CategoryComponent
+    CategoryComponent,
+    CheckoutComponent,
+    ThankyouComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NoopAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

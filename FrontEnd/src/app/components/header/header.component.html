@@ -9,7 +9,7 @@
         <li><a href="#"><i class="fa fa-map-marker"></i> Hyd, India</a></li>
       </ul>
       <ul class="header-links pull-right">
-        <li><a routerLink="/login"><i class="fa fa-user-o"></i> LOGIN</a></li>
+        <li><a routerLink="/profile"><i class="fa fa-user-o"></i> {{ authState === false ? 'LOGIN' : 'My Account' }}</a></li>
         <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> REGISTER</a></li>
       </ul>
     </div>
@@ -31,10 +31,6 @@
           </div>
         </div>
         <!-- /LOGO -->
-
-        <!-- SEARCH BAR -->
-        <!--        <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>-->
-        <!-- /SEARCH BAR -->
 
         <!-- ACCOUNT -->
         <div class="col-md-9 clearfix">

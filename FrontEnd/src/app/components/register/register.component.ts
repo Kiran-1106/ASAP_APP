@@ -9,6 +9,7 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
   registrationForm: FormGroup;
   private namePattern = /^[a-zA-Z][a-zA-Z\s]+$/;
   private emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;

@@ -9,10 +9,10 @@ import {environment} from "../../environments/environment";
 export class UserService {
   private SERVER_URL = environment.SERVER_URL;
   // @ts-ignore
-  private auth = false;
+  auth = false;
   authState$ = new BehaviorSubject<boolean>(this.auth);
   // @ts-ignore
-  loginMessage$ = new BehaviorSubject<string>(null);
+  userData$ = new BehaviorSubject<ResponseModel | object>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +28,4 @@ export class UserService {
     });
   }
 
-  loginUser(email: string, password: string) {
-
-  }
 }
