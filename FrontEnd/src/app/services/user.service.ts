@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
@@ -8,6 +8,12 @@ import {environment} from "../../environments/environment";
 })
 export class UserService {
   private SERVER_URL = environment.SERVER_URL;
+  // @ts-ignore
+  private auth = false;
+  authState$ = new BehaviorSubject<boolean>(this.auth);
+  // @ts-ignore
+  loginMessage$ = new BehaviorSubject<string>(null);
+
 
   constructor(private http: HttpClient) { }
 
@@ -21,5 +27,9 @@ export class UserService {
       password,
       age
     });
+  }
+
+  loginUser(email: string, password: string) {
+
   }
 }

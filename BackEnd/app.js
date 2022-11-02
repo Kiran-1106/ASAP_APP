@@ -21,8 +21,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* Import Routes */
 const authRouter = require('./routes/auth');
+const productRouter = require('./routes/product');
 
 /* Use Routes */
 app.use('/api/auth', authRouter);
+app.use('/api/products', productRouter);
 
 module.exports = app;
