@@ -3,6 +3,7 @@ const {body, validationResult} = require("express-validator");
 const helper = require("../config/helpers");
 const bcrypt = require('bcrypt');
 const sendmail = require("../config/email");
+const {isEmail} = require("validator");
 const router = express.Router();
 
 /* REGISTER ROUTE */
@@ -54,7 +55,7 @@ router.post(`/register`, [
                 age: age
             }).then(lastId => {
                 if (lastId.insertId > 0) {
-                    sendmail.Email(email);
+                    sendmail.RegisterEmail(email);
                     res.status(201).json({message: 'Registration successful.'});
                 } else {
                     res.status(501).json({message: 'Registration failed.'});
@@ -63,7 +64,15 @@ router.post(`/register`, [
         }
     });
 
-/* LOGIN ROUTE */
+/* CONTACT ROUTE */
+router.post(`/contact`,[],
+    async (req, res) => {
+        let email = req.body.email;
+        let message = req.body.message;
+        sendmail.ContactEmail(email, message);
+        res.status(201).json({message: 'Thank you for writing to us, we will get back to you shortly'});
+    })
 
+/* LOGIN ROUTE */
 
 module.exports = router;

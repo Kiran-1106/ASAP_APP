@@ -6,8 +6,8 @@ import {ProductComponent} from "./components/product/product.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {CategoryComponent} from "./components/category/category.component";
 import {CheckoutComponent} from "./components/checkout/checkout.component";
-import {ProfileGuard} from "./guard/profile.guard";
 import {ContactComponent} from "./components/contact/contact.component";
+import {ThankyouComponent} from "./components/thankyou/thankyou.component";
 
 const routes: Routes = [
   {
@@ -26,7 +26,10 @@ const routes: Routes = [
     path: 'cart', component: CartComponent
   },
   {
-    path: 'checkout', component: CheckoutComponent, canActivate:[ProfileGuard]
+    path: 'checkout', component: CheckoutComponent
+  },
+  {
+    path: 'thankyou', component: ThankyouComponent
   },
   {
     path: 'contact', component: ContactComponent

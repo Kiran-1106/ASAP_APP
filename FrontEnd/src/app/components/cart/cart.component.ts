@@ -11,7 +11,6 @@ export class CartComponent implements OnInit {
 
   cartData!: CartModelServer;
   cartTotal!: number;
-  subTotal!: number;
 
   constructor(public cartService: CartService) { }
 

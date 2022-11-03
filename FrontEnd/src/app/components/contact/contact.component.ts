@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-contact',
@@ -10,15 +10,16 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ContactComponent implements OnInit {
 
   contactForm: FormGroup;
+  private namePattern = /^[a-zA-Z][a-zA-Z\s]+$/;
   private emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   // @ts-ignore
   contactMessage: string;
 
-  constructor(private http: HttpClient,
-              private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private userService: UserService) {
+
     this.contactForm = fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      phone: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.pattern(this.namePattern)]],
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       message: ['', [Validators.required, Validators.minLength(1)]],
     });
@@ -32,13 +33,18 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  contact() {
+  contactUser() {
 
     if(this.contactForm.invalid) {
       return;
     }
 
-    this.contactMessage = 'We will get back to you'
+    this.userService.contactUser({...this.contactForm.value}).subscribe((response: { message: string }) => {
+      this.contactMessage = response.message;
+      setTimeout(() => {
+        this.contactMessage = '';
+      }, 5000);
+    });
     this.contactForm.reset();
   }
 }

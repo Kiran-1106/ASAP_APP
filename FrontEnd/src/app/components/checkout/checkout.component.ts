@@ -15,8 +15,6 @@ export class CheckoutComponent implements OnInit {
 
   cartData!: CartModelServer;
   cartTotal!: number;
-  // @ts-ignore
-  userId;
 
   constructor(private cartService: CartService,
               private orderService: OrderService,
@@ -27,9 +25,6 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.cartData$.subscribe(data => this.cartData = data);
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total);
-    this.userService.userData$.subscribe(data => {
-      this.userId = data.userId || data.id;
-    });
   }
 
   onCheckout() {

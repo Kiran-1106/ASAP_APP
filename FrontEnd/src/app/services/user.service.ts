@@ -6,13 +6,13 @@ import {environment} from "../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
+
   private SERVER_URL = environment.SERVER_URL;
   // @ts-ignore
   auth = false;
   authState$ = new BehaviorSubject<boolean>(this.auth);
-  // @ts-ignore
-  userData$ = new BehaviorSubject<ResponseModel | object>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +25,15 @@ export class UserService {
       lname,
       password,
       age
+    });
+  }
+
+  contactUser(formData: any): Observable<{ message: string }> {
+    const {name, email, message} = formData;
+    return this.http.post<{ message: string }>(`${this.SERVER_URL}/auth/contact`, {
+      name,
+      email,
+      message
     });
   }
 
