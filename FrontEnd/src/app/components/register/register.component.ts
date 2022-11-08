@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {map} from "rxjs";
-import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   fieldTextType: boolean;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) {
+              private authService: AuthService) {
 
     this.registrationForm = fb.group({
       fname: ['', [Validators.required, Validators.minLength(3), Validators.pattern(this.namePattern)]],
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.userService.registerUser({...this.registrationForm.value}).subscribe((response: { message: string }) => {
+    this.authService.registerUser({...this.registrationForm.value}).subscribe((response: { message: string }) => {
       this.registrationMessage = response.message;
       setTimeout(() => {
         this.registrationMessage = '';

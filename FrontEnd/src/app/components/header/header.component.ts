@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
 import {CartService} from "../../services/cart.service";
 import {CartModelServer} from "../../models/cart.model";
 
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   authState: boolean;
 
   constructor(public cartService: CartService,
-              private userService: UserService,
+              private authService: AuthService,
               private router: Router) {
   }
 
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
     this.cartService.cartData$.subscribe(data => this.cartData = data);
 
-    this.userService.authState$.subscribe(authState => this.authState = authState);
+    this.authService.authState$.subscribe(authState => this.authState = authState);
   }
 
   selectCategory(catName: string) {

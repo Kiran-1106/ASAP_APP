@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-contact',
@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
   contactMessage: string;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) {
+              private authService: AuthService) {
 
     this.contactForm = fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.pattern(this.namePattern)]],
@@ -39,7 +39,7 @@ export class ContactComponent implements OnInit {
       return;
     }
 
-    this.userService.contactUser({...this.contactForm.value}).subscribe((response: { message: string }) => {
+    this.authService.contactUser({...this.contactForm.value}).subscribe((response: { message: string }) => {
       this.contactMessage = response.message;
       setTimeout(() => {
         this.contactMessage = '';

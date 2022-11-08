@@ -18,6 +18,8 @@ import { CategoryComponent } from './components/category/category.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ThankyouComponent } from './components/thankyou/thankyou.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { ContactComponent } from './components/contact/contact.component';
     CategoryComponent,
     CheckoutComponent,
     ThankyouComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

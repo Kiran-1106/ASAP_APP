@@ -3,8 +3,12 @@ const {body, validationResult} = require("express-validator");
 const helper = require("../config/helpers");
 const bcrypt = require('bcrypt');
 const sendmail = require("../config/email");
-const {isEmail} = require("validator");
+const {database} = require("../config/helpers");
+const jwt = require('jsonwebtoken');
+const verifyToken = require('../verifyToken');
 const router = express.Router();
+
+const secret = "1SBz93MsqTs7KgwARcB0I0ihpILIjk3w";
 
 /* REGISTER ROUTE */
 router.post(`/register`, [
@@ -74,5 +78,37 @@ router.post(`/contact`,[],
     })
 
 /* LOGIN ROUTE */
+router.post(`/login`,[],
+    async (req, res) => {
+        const myEmail = req.body.email;
+        const myUsername = req.body.username;
+        const myPlaintextPassword = req.body.password;
+        const user = await database.table('users').filter({$or:[{email: myEmail}, {username: myUsername}]}).get();
+        if(user) {
+            bcrypt.compare(myPlaintextPassword, user.password, function (err, response) {
+                if(!err) {
+                    if(response) {
+                        const token = jwt.sign({email: user.email, username: user.username}, secret, {
+                            expiresIn: '1h'
+                        })
+                        res.status(201).json({token: token, auth: response, user: user})
+                    } else {
+                        res.status(401).json({message: 'Password is incorrect'})
+                    }
+                } else {
+                    res.status(401).json({message: 'Something went wrong...!'})
+                }
+            });
+        } else {
+            res.status(401).json({message: 'Username or Email is incorrect'})
+        }
+    })
+
+
+router.get(`/`, verifyToken, (req, res) => {
+    if(req && req.jwt) {
+        res.status(201).json({data: 'ok'});
+    }
+})
 
 module.exports = router;
