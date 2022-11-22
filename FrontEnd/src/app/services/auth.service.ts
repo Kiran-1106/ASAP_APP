@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, catchError, combineLatestAll, flatMap, map, Observable, of} from "rxjs";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {BehaviorSubject, catchError, Observable, of} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class AuthService {
   // @ts-ignore
   loginMessage$ = new BehaviorSubject<string>(null);
   // @ts-ignore
-  userData$ = new BehaviorSubject<ResponseModel | object>(null);
-  user: any;
+  userData$ = new BehaviorSubject<ResponseModel | object>(null)
 
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private cookies: CookieService) {
   }
 
   registerUser(formData: any): Observable<{ message: string }> {
@@ -55,7 +56,6 @@ export class AuthService {
           this.auth = emaildata.auth
           this.authState$.next(this.auth);
           this.userData$.next(emaildata.user);
-          this.router.navigate(['']).then();
         }
       })
   }
@@ -71,7 +71,6 @@ export class AuthService {
           this.auth = usernamedata.auth
           this.authState$.next(this.auth);
           this.userData$.next(usernamedata.user);
-          this.router.navigate(['']).then();
         }
       })
   }
@@ -79,20 +78,20 @@ export class AuthService {
   logout() {
     this.auth = false;
     this.authState$.next(this.auth);
-    this.router.navigateByUrl(`/login`);
+    this.router.navigateByUrl(`/login`).then();
   }
 
-  isloggedIn(): boolean {
-    const loginCookie = localStorage.getItem('auth');
-    if(loginCookie === 'true') {
-      return true;
-    }
-    return false;
+  gotoProfile(token: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get(`${this.SERVER_URL}/auth/profile`, {headers: headers})
   }
 
 }
 
-export interface ResponseModel {
+interface ResponseModel {
   token: string;
   auth: boolean;
   user: {

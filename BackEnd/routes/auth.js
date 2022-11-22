@@ -40,7 +40,7 @@ router.post(`/register`, [
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(201).json({message: errors.array().find(value => value.msg).msg});
+            return res.status(401).json({message: errors.array().find(value => value.msg).msg});
         } else {
             let email = req.body.email;
             let username = (req.body.username).toLowerCase();
@@ -105,7 +105,7 @@ router.post(`/login`,[],
     })
 
 
-router.get(`/`, verifyToken, (req, res) => {
+router.get(`/profile`, verifyToken, (req, res) => {
     if(req && req.jwt) {
         res.status(201).json({data: 'ok'});
     }

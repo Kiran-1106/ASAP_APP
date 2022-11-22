@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../../services/product.service";
 import {ProductModelServer, ServerResponse} from "../../models/product.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CartService} from "../../services/cart.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private  productService: ProductService,
               private router: Router,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     // @ts-ignore

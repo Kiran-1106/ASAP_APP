@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
-import {catchError, of} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -28,6 +26,13 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.authService.authState$.subscribe(authState => {
+      if(authState) {
+        this.router.navigateByUrl(this.route.snapshot.queryParams['returnUrl'] || '');
+      } else {
+        this.router.navigateByUrl('/login');
+      }
+    })
   }
 
   toggleFieldTextType() {

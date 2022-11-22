@@ -11,12 +11,9 @@ import {CartModelServer} from "../../models/cart.model";
 })
 export class HeaderComponent implements OnInit {
 
-  // @ts-ignore
-  cartData: CartModelServer;
-  // @ts-ignore
-  cartTotal: number;
-  // @ts-ignore
-  authState: boolean;
+  cartData!: CartModelServer;
+  cartTotal!: number;
+  authState!: boolean;
 
   constructor(public cartService: CartService,
               private authService: AuthService,

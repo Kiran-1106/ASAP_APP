@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const {database} = require("./helpers");
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -51,4 +52,47 @@ function ContactEmail(email, message) {
     });
 }
 
-module.exports = { RegisterEmail, ContactEmail };
+async function OrderEmail(userId, products, orderId) {
+
+    let userDetails = await database.table('users')
+        .filter({id: userId})
+        .withFields(['email', 'username'])
+        .get().then(user => {
+            return user;
+        })
+
+    let ids = [];
+    products.forEach(ele => {
+        ids.push(ele);
+    })
+
+
+    const mailOptions = {
+        from: '"ASAP.in" <amaraganisaikiran1999@gmail.com>',
+        to: userDetails.email,
+        subject: `Your ASAP.in order #${orderId} of ${ids.length} items`,
+        text: `Hello ${userDetails.username},\r\n \r\n` +
+            `Thank you for your order\r\n \r\n` +
+            `Order summary\r\n` +
+            `-------------------------\r\n` +
+            `Order #${orderId}\r\n \r\n` +
+            `Placed on ${new Date().toLocaleDateString('en-us', {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            })}\r\n \r\n` +
+            `We hope to see you again soon.\r\n` +
+            `ASAP.in`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
+module.exports = { RegisterEmail, ContactEmail, OrderEmail };

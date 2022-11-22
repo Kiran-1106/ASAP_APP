@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { database } = require('../config/helpers');
 const bodyParser = require('body-parser');
+const sendmail = require("../config/email");
 
 router.use(bodyParser.json());
 
@@ -36,7 +37,7 @@ router.get('/', (req, res) => {
 
 });
 
-/* GET SINGLE ORDERs */
+/* GET SINGLE A ORDER */
 router.get('/:id', (req, res) => {
 
     const orderId = req.params.id;
@@ -123,6 +124,7 @@ router.post('/new',  (req, res) => {
                     order_id: newOrderId.insertId,
                     products: products
                 })
+                sendmail.OrderEmail(userId, products, newOrderId.insertId)
             }).catch(err => console.log(err));
     } else {
         res.json({message: `New Order failed`, success: false});

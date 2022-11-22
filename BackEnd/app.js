@@ -24,11 +24,13 @@ const authRouter = require('./routes/auth');
 const productRouter = require('./routes/products');
 const orderRouter = require('./routes/orders');
 const userRouter = require('./routes/users');
+const addressRouter = require('./routes/address');
 
 /* Use Routes */
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/users', userRouter);
+app.use('/api/address', addressRouter);
 
 module.exports = app;

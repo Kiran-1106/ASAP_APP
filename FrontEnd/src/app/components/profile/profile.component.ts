@@ -17,7 +17,17 @@ export class ProfileComponent implements OnInit {
       return user;
     })).subscribe((data) => {
       this.myUser = data;
-    })
+    });
+
+    if(localStorage.getItem('token')) {
+      this.authService.gotoProfile(localStorage.getItem('token')).subscribe(res => {
+        if(Object.values(res)[0] === 'ok') {
+          console.log('We are in Home');
+        } else {
+          console.log('Something went wrong...!');
+        }
+      })
+    }
   }
 
   logout() {
